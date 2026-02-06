@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Rose Day ❤️</title>
+
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+<style>
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;      /* vertical center */
+  justify-content: center;  /* horizontal center */
+  background: radial-gradient(circle at top, #1b0a14, #000);
+  color: #fff;
+}
+
+.main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centers internal content */
+}
+
+.hero{
+  flex:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  justify-content:center;
+  align-items:center;
+}
+
+.left,.right{flex:1;min-width:280px;text-align:center}
+
+/* QUOTES */
+.quote{
+  margin:1.2rem auto;
+  padding:1rem 1.5rem;
+  max-width:420px;
+  border-radius:14px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(8px);
+  transition:.35s;
+}
+.quote:hover{
+  transform:scale(1.04);
+  background:rgba(255,192,203,.18);
+  box-shadow:0 0 22px rgba(255,105,135,.45);
+}
+.quote::after{
+  content:"💌 Tap to open";
+  display:block;
+  margin-top:.5rem;
+  font-size:.75rem;
+  opacity:.6;
+}
+
+/* 🌹 ROSES */
+.rose{
+  position:fixed;
+  top:-50px;
+  pointer-events:none;
+  z-index:999;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+/* 🎵 START OVERLAY */
+#startOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#1b0a14,#000);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  cursor:pointer;
+}
+.overlay-content{text-align:center;animation:pulse 1.8s infinite}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.05);opacity:1}
+  100%{transform:scale(1);opacity:.8}
+}
+
+/* 💌 CARD OVERLAY */
+#cardOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#2a0f1f,#000);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2500;
+}
+
+.card{
+  max-width:500px;
+  padding:2rem;
+  border-radius:20px;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  text-align:center;
+  animation:cardIn .6s ease forwards;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:scale(.85)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.back-btn{
+  margin-top:1.5rem;
+  cursor:pointer;
+  opacity:.8;
+}
+
+a{color:#ff9db4;text-decoration:none}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="त ह र मझ मतव  Mitwaa  Title Song  Swapnil Joshi, Sonalee Kulkarni & Prarthana Behere.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎵 START -->
+<div id="startOverlay">
+  <div class="overlay-content">
+    <h2>🌹 Happy Rose Day 🌹</h2>
+    <p>Tap anywhere to begin ❤️</p>
+  </div>
+</div>
+
+<!-- 💌 CARD -->
+<div id="cardOverlay">
+  <div class="card">
+    <h2>🌹 For You 🌹</h2>
+    <p id="cardQuote"></p>
+    <div class="back-btn" onclick="closeCard()">⬅ Back</div>
+  </div>
+</div>
+
+<div class="main">
+<h2>* Rose Day Special *</h2>
+
+<div class="hero">
+  <div class="left">
+    <lord-icon src="https://cdn.lordicon.com/lhwyshcs.json"
+      trigger="hover" style="width:120px;height:120px"></lord-icon>
+
+    <p>Kunal</p>
+    <h3>💞</h3>
+    <p>Shweta</p>
+
+    <lord-icon src="https://cdn.lordicon.com/btlpicdx.json"
+      trigger="hover" style="width:120px;height:120px"></lord-icon>
+  </div>
+
+  <div class="right">
+    <h3>Special Quotes for my special one 🌹</h3>
+    <div class="quotes"></div>
+  </div>
+</div>
+</div>
+
+<script>
+/* 💌 QUOTES */
+const quotes=[
+`You are the rose that blooms in my dreams,
+the fragrance that lives in my heart,
+the smile that colors my world.
+Happy Rose Day, my love 🌹`
+];
+
+const quotesDiv=document.querySelector(".quotes");
+const cardOverlay=document.getElementById("cardOverlay");
+const cardQuote=document.getElementById("cardQuote");
+
+quotes.forEach(text=>{
+  const p=document.createElement("p");
+  p.className="quote";
+  p.innerText=text;
+  p.onclick=()=>{
+    cardQuote.innerText=text;
+    cardOverlay.style.display="flex";
+  };
+  quotesDiv.appendChild(p);
+});
+
+/* CLOSE CARD */
+function closeCard(){
+  cardOverlay.style.display="none";
+}
+
+/* 🌹 ROSES */
+function createRose(){
+  const rose=document.createElement("div");
+  rose.className="rose";
+  rose.textContent="🌹";
+  rose.style.left=Math.random()*100+"vw";
+  rose.style.fontSize=16+Math.random()*24+"px";
+  rose.style.animationDuration=4+Math.random()*4+"s";
+  document.body.appendChild(rose);
+  setTimeout(()=>rose.remove(),8000);
+}
+setInterval(createRose,650);
+
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
+document.getElementById("startOverlay").onclick=()=>{
+  music.volume=.25;
+  music.play();
+  startOverlay.style.display="none";
+};
+</script>
+
+</body>
+</html>
