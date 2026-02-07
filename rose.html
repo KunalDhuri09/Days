@@ -17,10 +17,11 @@ html, body {
 body {
   margin: 0;
   display: flex;
-  align-items: center;      /* vertical center */
-  justify-content: center;  /* horizontal center */
+  align-items: center;
+  justify-content: center;
   background: radial-gradient(circle at top, #1b0a14, #000);
   color: #fff;
+  overflow:hidden;
 }
 
 .main {
@@ -30,7 +31,7 @@ body {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centers internal content */
+  justify-content: center;
 }
 
 .hero{
@@ -68,7 +69,7 @@ body {
   opacity:.6;
 }
 
-/* 🌹 ROSES */
+/* 🌹 FALLING ROSES */
 .rose{
   position:fixed;
   top:-50px;
@@ -109,18 +110,36 @@ body {
   z-index:2500;
 }
 
+/* CARD */
 .card{
   max-width:500px;
   padding:2rem;
-  border-radius:20px;
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px);
+  border-radius:22px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(12px);
   text-align:center;
   animation:cardIn .6s ease forwards;
+  position:relative;
 }
 @keyframes cardIn{
-  from{opacity:0;transform:scale(.85)}
+  from{opacity:0;transform:scale(.7)}
   to{opacity:1;transform:scale(1)}
+}
+
+/* 🌹 BIG ROSE */
+.big-rose{
+  font-size:90px;
+  margin-bottom:1rem;
+  animation:bloom 1.6s ease-out forwards, float 3s ease-in-out infinite;
+}
+@keyframes bloom{
+  0%{transform:scale(0) rotate(-180deg);opacity:0}
+  70%{transform:scale(1.15) rotate(8deg);opacity:1}
+  100%{transform:scale(1) rotate(0)}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 
 .back-btn{
@@ -129,7 +148,19 @@ body {
   opacity:.8;
 }
 
-a{color:#ff9db4;text-decoration:none}
+/* 🌹 ROSE BURST */
+.rose-burst{
+  position:fixed;
+  left:50%;
+  top:50%;
+  font-size:24px;
+  animation:burst 1.2s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes burst{
+  from{transform:scale(0) translate(0,0);opacity:1}
+  to{transform:scale(1.4) translate(var(--x),var(--y));opacity:0}
+}
 </style>
 </head>
 
@@ -151,7 +182,8 @@ a{color:#ff9db4;text-decoration:none}
 <!-- 💌 CARD -->
 <div id="cardOverlay">
   <div class="card">
-    <h2>🌹 For You 🌹</h2>
+    <div class="big-rose">🌹</div>
+    <h2>For You</h2>
     <p id="cardQuote"></p>
     <div class="back-btn" onclick="closeCard()">⬅ Back</div>
   </div>
@@ -183,10 +215,15 @@ a{color:#ff9db4;text-decoration:none}
 <script>
 /* 💌 QUOTES */
 const quotes=[
-`You are the rose that blooms in my dreams,
-the fragrance that lives in my heart,
-the smile that colors my world.
-Happy Rose Day, my love 🌹`
+`Hey Shweta,
+
+Happy Rose Day 🌹
+
+Gulaba sarkhi sundar tu,
+Tujhi upasthiti gulabachya sugandhasarkhi,
+Tujha hasna gulabachya rangasarkha — nirbhay ani tejasvi.
+
+Punha ekda Happy Rose Day, my 🌹`
 ];
 
 const quotesDiv=document.querySelector(".quotes");
@@ -200,6 +237,7 @@ quotes.forEach(text=>{
   p.onclick=()=>{
     cardQuote.innerText=text;
     cardOverlay.style.display="flex";
+    roseBurst();
   };
   quotesDiv.appendChild(p);
 });
@@ -209,7 +247,7 @@ function closeCard(){
   cardOverlay.style.display="none";
 }
 
-/* 🌹 ROSES */
+/* 🌹 FALLING ROSES */
 function createRose(){
   const rose=document.createElement("div");
   rose.className="rose";
@@ -221,6 +259,19 @@ function createRose(){
   setTimeout(()=>rose.remove(),8000);
 }
 setInterval(createRose,650);
+
+/* 🌹 ROSE BURST */
+function roseBurst(){
+  for(let i=0;i<14;i++){
+    const r=document.createElement("div");
+    r.className="rose-burst";
+    r.textContent="🌹";
+    r.style.setProperty("--x",(Math.random()*240-120)+"px");
+    r.style.setProperty("--y",(Math.random()*240-120)+"px");
+    document.body.appendChild(r);
+    setTimeout(()=>r.remove(),1200);
+  }
+}
 
 /* 🎵 MUSIC */
 const music=document.getElementById("bgMusic");
