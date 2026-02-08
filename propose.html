@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Propose Day 💍</title>
+
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+<style>
+/* 🌸 PROPOSE DAY THEME */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #2b0f2f, #000);
+  color: #fff;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* MAIN */
+.main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align:center;
+}
+
+.hero{
+  flex:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  justify-content:center;
+  align-items:center;
+}
+
+.left,.right{flex:1;min-width:280px}
+
+/* 💌 QUOTES */
+.quote{
+  margin:1.2rem auto;
+  padding:1.2rem 1.6rem;
+  max-width:440px;
+  border-radius:18px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  transition:.35s;
+}
+.quote:hover{
+  transform:scale(1.05);
+  background:rgba(255,105,180,.25);
+  box-shadow:0 0 26px rgba(255,20,147,.6);
+}
+.quote::after{
+  content:"💍 Tap to read my heart";
+  display:block;
+  margin-top:.5rem;
+  font-size:.75rem;
+  opacity:.6;
+}
+
+/* 💗 FLOATING I LOVE YOU */
+.love{
+  position:fixed;
+  bottom:-40px;
+  pointer-events:none;
+  z-index:999;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* 🎵 START OVERLAY */
+#startOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#2b0f2f,#000);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  cursor:pointer;
+}
+.overlay-content{text-align:center;animation:pulse 1.8s infinite}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.08);opacity:1}
+  100%{transform:scale(1);opacity:.8}
+}
+
+/* 💍 CARD OVERLAY */
+#cardOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#3a1240,#000);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2500;
+}
+
+/* CARD */
+.card{
+  max-width:520px;
+  padding:2.2rem;
+  border-radius:24px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(14px);
+  text-align:center;
+  animation:cardIn .6s ease forwards;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:scale(.7)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* 💍 BIG RING */
+.big-ring{
+  font-size:92px;
+  margin-bottom:1rem;
+  animation:pop 1.4s ease-out forwards, float 3s infinite;
+}
+@keyframes pop{
+  from{transform:scale(0) rotate(-180deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+.back-btn{
+  margin-top:1.6rem;
+  cursor:pointer;
+  opacity:.8;
+}
+
+/* 💖 HEART BURST */
+.heart-burst{
+  position:fixed;
+  left:50%;
+  top:50%;
+  font-size:22px;
+  animation:burst 1.2s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes burst{
+  from{transform:scale(0);opacity:1}
+  to{
+    transform:scale(1.4) translate(var(--x),var(--y));
+    opacity:0
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="Tula Japnar Aahe  Khari Biscuit  Amitraj  Adarsh Shinde  Ronkini Gupta.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START -->
+<div id="startOverlay">
+  <div class="overlay-content">
+    <h2>💍 Happy Propose Day 💍</h2>
+    <p>Tap to begin our forever ❤️</p>
+  </div>
+</div>
+
+<!-- CARD -->
+<div id="cardOverlay">
+  <div class="card">
+    <div class="big-ring">💍</div>
+    <h2>My Question 💖</h2>
+    <p id="cardQuote"></p>
+    <div class="back-btn" onclick="closeCard()">⬅ Back</div>
+  </div>
+</div>
+
+<div class="main">
+  <h2>* Propose Day Special *</h2>
+
+  <div class="hero">
+    <div class="left">
+      <lord-icon src="https://cdn.lordicon.com/rjzlnunf.json"
+        trigger="hover" style="width:120px;height:120px"></lord-icon>
+
+      <p>Kunal</p>
+      <h3>💖</h3>
+      <p>Shweta</p>
+
+      <lord-icon src="https://cdn.lordicon.com/qbyorenv.json"
+        trigger="hover" style="width:120px;height:120px"></lord-icon>
+    </div>
+
+    <div class="right">
+      <h3>A question straight from my heart 💍</h3>
+      <div class="quotes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 💌 PROPOSAL TEXT */
+const quotes=[`
+Dear Shweta,
+
+From the moment you walked into my life,
+everything felt lighter, warmer, and more meaningful.
+
+Every smile of yours feels like a promise,
+every moment with you feels like home.
+
+So today, on Propose Day,
+I want to ask you something straight from my heart 💖
+
+Will you be mine… forever? 💍
+`];
+
+const quotesDiv=document.querySelector(".quotes");
+const cardOverlay=document.getElementById("cardOverlay");
+const cardQuote=document.getElementById("cardQuote");
+
+quotes.forEach(text=>{
+  const p=document.createElement("p");
+  p.className="quote";
+  p.innerText=text;
+  p.onclick=()=>{
+    cardQuote.innerText=text;
+    cardOverlay.style.display="flex";
+    heartBurst();
+  };
+  quotesDiv.appendChild(p);
+});
+
+function closeCard(){
+  cardOverlay.style.display="none";
+}
+
+/* 💖 FLOATING I LOVE YOU */
+function createLove(){
+  const love=document.createElement("div");
+  love.className="love";
+  love.textContent="I Love You ❤️";
+  love.style.left=Math.random()*100+"vw";
+  love.style.fontSize=14+Math.random()*16+"px";
+  love.style.animationDuration=5+Math.random()*4+"s";
+  document.body.appendChild(love);
+  setTimeout(()=>love.remove(),9000);
+}
+setInterval(createLove,600);
+
+/* 💖 HEART BURST */
+function heartBurst(){
+  for(let i=0;i<16;i++){
+    const h=document.createElement("div");
+    h.className="heart-burst";
+    h.textContent="💖";
+    h.style.setProperty("--x",(Math.random()*260-130)+"px");
+    h.style.setProperty("--y",(Math.random()*260-130)+"px");
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1200);
+  }
+}
+
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
+document.getElementById("startOverlay").onclick=()=>{
+  music.volume=.25;
+  music.play();
+  startOverlay.style.display="none";
+};
+</script>
+
+</body>
+</html>
