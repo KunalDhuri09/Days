@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Chocolate Day 🍫</title>
+
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+<style>
+/* 🍫 CHOCOLATE DAY THEME */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #3b1f14, #120906);
+  color: #fff;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* MAIN */
+.main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align:center;
+}
+
+.hero{
+  flex:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  justify-content:center;
+  align-items:center;
+}
+
+.left,.right{flex:1;min-width:280px}
+
+/* 🍫 QUOTES */
+.quote{
+  margin:1.2rem auto;
+  padding:1.3rem 1.7rem;
+  max-width:460px;
+  border-radius:20px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(10px);
+  transition:.35s;
+}
+.quote:hover{
+  transform:scale(1.05);
+  background:rgba(210,105,30,.3);
+  box-shadow:0 0 28px rgba(255,180,100,.6);
+}
+.quote::after{
+  content:"🍫 Tap for sweetness";
+  display:block;
+  margin-top:.5rem;
+  font-size:.75rem;
+  opacity:.6;
+}
+
+/* 🍬 FLOATING CHOCOLATES */
+.choco{
+  position:fixed;
+  bottom:-40px;
+  pointer-events:none;
+  z-index:999;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh) rotate(10deg);
+    opacity:0;
+  }
+}
+
+/* 🎵 START OVERLAY */
+#startOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#3b1f14,#120906);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  cursor:pointer;
+}
+.overlay-content{text-align:center;animation:pulse 1.8s infinite}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.08);opacity:1}
+  100%{transform:scale(1);opacity:.8}
+}
+
+/* 🍫 CARD OVERLAY */
+#cardOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#4a2618,#120906);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2500;
+}
+
+/* CARD */
+.card{
+  max-width:540px;
+  padding:2.3rem;
+  border-radius:26px;
+  background:rgba(255,255,255,0.16);
+  backdrop-filter:blur(14px);
+  text-align:center;
+  animation:cardIn .6s ease forwards;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:scale(.7)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* 🍫 BIG CHOCOLATE */
+.big-choco{
+  font-size:90px;
+  margin-bottom:1rem;
+  animation:pop 1.4s ease-out forwards, float 3s infinite;
+}
+@keyframes pop{
+  from{transform:scale(0) rotate(-180deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+.back-btn{
+  margin-top:1.6rem;
+  cursor:pointer;
+  opacity:.8;
+}
+
+/* 🍬 CHOCOLATE BURST */
+.choco-burst{
+  position:fixed;
+  left:50%;
+  top:50%;
+  font-size:22px;
+  animation:burst 1.2s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes burst{
+  from{transform:scale(0);opacity:1}
+  to{
+    transform:scale(1.4) translate(var(--x),var(--y));
+    opacity:0
+  }
+}
+.choco-heart{
+  font-size:80px;
+  animation:chocoPulse 1.8s infinite;
+  filter: drop-shadow(0 0 10px rgba(255,180,100,.7));
+}
+
+@keyframes chocoPulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.15);opacity:1}
+  100%{transform:scale(1);opacity:.8}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="Kadhi Tu Song with Lyrics  Mumbai Pune Mumbai  Superhit Marathi Song  Swapnil Joshi, Mukta Barve.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START -->
+<div id="startOverlay">
+  <div class="overlay-content">
+    <h2>🍫 Happy Chocolate Day 🍫</h2>
+    <p>Tap to unwrap the sweetness 💖</p>
+  </div>
+</div>
+
+<!-- CARD -->
+<div id="cardOverlay">
+  <div class="card">
+    <div class="big-choco">🍫</div>
+    <h2>For You 💝</h2>
+    <p id="cardQuote"></p>
+    <div class="back-btn" onclick="closeCard()">⬅ Back</div>
+  </div>
+</div>
+
+<div class="main">
+  <h2>* Chocolate Day Special *</h2>
+
+  <div class="hero">
+    <div class="left">
+      <div class="choco-heart">
+  🍫💖
+</div>
+
+      <p>Kunal</p>
+      <h3>🍫</h3>
+      <p>Shweta</p>
+
+      <lord-icon
+  src="https://cdn.lordicon.com/rjzlnunf.json"
+  trigger="loop"
+  delay="800"
+  colors="primary:#ff9f68,secondary:#ff4d6d"
+  style="width:120px;height:120px">
+</lord-icon>
+    </div>
+
+    <div class="right">
+      <h3>A little sweetness for my favorite person 🍬</h3>
+      <div class="quotes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 🍫 CHOCOLATE MESSAGE */
+const quotes=[`
+Dear Shweta,
+
+Chocolate sarkhi tu aahe,
+sarva kahi ajun sundar karteys 💖
+
+Thodi goad,
+kadhi thodi bitter,
+pan nehmi addictive,
+aani bilkul resist na honari 🍫
+
+Ya Chocolate Day la,
+fakta evdhach sangaycha aahe —
+tu mazya aayushyat aslyane
+aayushya ajun goad zalyasarkha watta ✨
+
+Always yours,
+Kunal 🍬
+`];
+
+const quotesDiv=document.querySelector(".quotes");
+const cardOverlay=document.getElementById("cardOverlay");
+const cardQuote=document.getElementById("cardQuote");
+
+quotes.forEach(text=>{
+  const p=document.createElement("p");
+  p.className="quote";
+  p.innerText=text;
+  p.onclick=()=>{
+    cardQuote.innerText=text;
+    cardOverlay.style.display="flex";
+    chocoBurst();
+  };
+  quotesDiv.appendChild(p);
+});
+
+function closeCard(){
+  cardOverlay.style.display="none";
+}
+
+/* 🍬 FLOATING CHOCOLATES */
+function createChoco(){
+  const c=document.createElement("div");
+  c.className="choco";
+  c.textContent=Math.random()>.5?"🍫":"🍬";
+  c.style.left=Math.random()*100+"vw";
+  c.style.fontSize=16+Math.random()*18+"px";
+  c.style.animationDuration=5+Math.random()*4+"s";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),9000);
+}
+setInterval(createChoco,600);
+
+/* 🍫 BURST */
+function chocoBurst(){
+  for(let i=0;i<16;i++){
+    const b=document.createElement("div");
+    b.className="choco-burst";
+    b.textContent="🍫";
+    b.style.setProperty("--x",(Math.random()*260-130)+"px");
+    b.style.setProperty("--y",(Math.random()*260-130)+"px");
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1200);
+  }
+}
+
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
+document.getElementById("startOverlay").onclick=()=>{
+  music.volume=.25;
+  music.play();
+  startOverlay.style.display="none";
+};
+</script>
+
+</body>
+</html>
