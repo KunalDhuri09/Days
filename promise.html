@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Promise Day 🤝</title>
+
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+<style>
+/* 🤝 PROMISE DAY THEME */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #1f3a5f, #000814);
+  color: #fff;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* MAIN */
+.main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align:center;
+}
+
+.hero{
+  flex:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  justify-content:center;
+  align-items:center;
+}
+
+.left,.right{flex:1;min-width:280px}
+
+/* 🤍 QUOTES */
+.quote{
+  margin:1.2rem auto;
+  padding:1.4rem 1.8rem;
+  max-width:480px;
+  border-radius:22px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(10px);
+  transition:.35s;
+}
+.quote:hover{
+  transform:scale(1.05);
+  background:rgba(120,180,255,.25);
+  box-shadow:0 0 30px rgba(120,180,255,.6);
+}
+.quote::after{
+  content:"🤝 Tap to read my promise";
+  display:block;
+  margin-top:.5rem;
+  font-size:.75rem;
+  opacity:.6;
+}
+
+/* 🤝 FLOATING PROMISE WORDS */
+.promise{
+  position:fixed;
+  bottom:-40px;
+  pointer-events:none;
+  z-index:999;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* 🎵 START OVERLAY */
+#startOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#1f3a5f,#000814);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  cursor:pointer;
+}
+.overlay-content{text-align:center;animation:pulse 1.8s infinite}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.06);opacity:1}
+  100%{transform:scale(1);opacity:.8}
+}
+
+/* 🤍 CARD OVERLAY */
+#cardOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#274c77,#000814);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2500;
+}
+
+/* CARD */
+.card{
+  max-width:560px;
+  padding:2.4rem;
+  border-radius:30px;
+  background:rgba(255,255,255,0.16);
+  backdrop-filter:blur(14px);
+  text-align:center;
+  animation:cardIn .6s ease forwards;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:scale(.7)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* 🤝 BIG PROMISE */
+.big-promise{
+  font-size:88px;
+  margin-bottom:1rem;
+  animation:pop 1.4s ease-out forwards, float 3s infinite;
+}
+@keyframes pop{
+  from{transform:scale(0) rotate(-180deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+.back-btn{
+  margin-top:1.6rem;
+  cursor:pointer;
+  opacity:.8;
+}
+
+/* 🤍 PROMISE BURST */
+.promise-burst{
+  position:fixed;
+  left:50%;
+  top:50%;
+  font-size:22px;
+  animation:burst 1.2s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes burst{
+  from{transform:scale(0);opacity:1}
+  to{
+    transform:scale(1.4) translate(var(--x),var(--y));
+    opacity:0
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="Tula Japnar Aahe  Khari Biscuit  Amitraj  Adarsh Shinde  Ronkini Gupta.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START -->
+<div id="startOverlay">
+  <div class="overlay-content">
+    <h2>🤝 Happy Promise Day 🤝</h2>
+    <p>Tap to read what I promise you 🤍</p>
+  </div>
+</div>
+
+<!-- CARD -->
+<div id="cardOverlay">
+  <div class="card">
+    <div class="big-promise">🤝</div>
+    <h2>My Promises 💍</h2>
+    <p id="cardQuote"></p>
+    <div class="back-btn" onclick="closeCard()">⬅ Back</div>
+  </div>
+</div>
+
+<div class="main">
+  <h2>* Promise Day Special *</h2>
+
+  <div class="hero">
+    <div class="left">
+      <div style="font-size:80px;animation:float 3s infinite;">🤝</div>
+
+      <p>Kunal</p>
+      <h3>🤍</h3>
+      <p>Shweta</p>
+
+      <div style="font-size:80px;animation:float 3s infinite;">💍</div>
+    </div>
+
+    <div class="right">
+      <h3>Some promises come from the heart 🤍</h3>
+      <div class="quotes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 🤍 PROMISE MESSAGE */
+const quotes=[`
+Hey Shweta,
+
+I promise to stand by you,
+in your smiles and in your silence 🤍
+
+I promise to listen,
+even when words are hard to find.
+
+I promise to choose you,
+every single day,
+no matter what life brings.
+
+On this Promise Day,
+these aren’t just words —
+they are my heart speaking to yours 🤝
+
+Always yours,
+Kunal 💍
+`];
+
+const quotesDiv=document.querySelector(".quotes");
+const cardOverlay=document.getElementById("cardOverlay");
+const cardQuote=document.getElementById("cardQuote");
+
+quotes.forEach(text=>{
+  const p=document.createElement("p");
+  p.className="quote";
+  p.innerText=text;
+  p.onclick=()=>{
+    cardQuote.innerText=text;
+    cardOverlay.style.display="flex";
+    promiseBurst();
+  };
+  quotesDiv.appendChild(p);
+});
+
+function closeCard(){
+  cardOverlay.style.display="none";
+}
+
+/* 🤝 FLOATING PROMISE WORDS */
+function createPromise(){
+  const p=document.createElement("div");
+  p.className="promise";
+  p.textContent=Math.random()>.5?"🤍 Promise":"🤝 Forever";
+  p.style.left=Math.random()*100+"vw";
+  p.style.fontSize=14+Math.random()*16+"px";
+  p.style.animationDuration=6+Math.random()*4+"s";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),10000);
+}
+setInterval(createPromise,800);
+
+/* 🤍 PROMISE BURST */
+function promiseBurst(){
+  for(let i=0;i<16;i++){
+    const b=document.createElement("div");
+    b.className="promise-burst";
+    b.textContent="🤍";
+    b.style.setProperty("--x",(Math.random()*260-130)+"px");
+    b.style.setProperty("--y",(Math.random()*260-130)+"px");
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1200);
+  }
+}
+
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
+document.getElementById("startOverlay").onclick=()=>{
+  music.volume=.25;
+  music.play();
+  startOverlay.style.display="none";
+};
+</script>
+
+</body>
+</html>
