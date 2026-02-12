@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Hug Day 🤗</title>
+
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+<style>
+/* 🤗 HUG DAY THEME */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #ff9a9e, #3a0b14);
+  color: #fff;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* MAIN */
+.main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align:center;
+}
+
+.hero{
+  flex:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  justify-content:center;
+  align-items:center;
+}
+
+.left,.right{flex:1;min-width:280px}
+
+/* 🤍 QUOTES */
+.quote{
+  margin:1.2rem auto;
+  padding:1.5rem 1.9rem;
+  max-width:480px;
+  border-radius:26px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(12px);
+  transition:.35s;
+}
+.quote:hover{
+  transform:scale(1.05);
+  background:rgba(255,180,190,.35);
+  box-shadow:0 0 34px rgba(255,120,150,.8);
+}
+.quote::after{
+  content:"🤗 Tap for a hug";
+  display:block;
+  margin-top:.5rem;
+  font-size:.75rem;
+  opacity:.6;
+}
+
+/* 🤗 FLOATING HUGS */
+.hug{
+  position:fixed;
+  bottom:-40px;
+  pointer-events:none;
+  z-index:999;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* 🎵 START OVERLAY */
+#startOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#ff9a9e,#3a0b14);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  cursor:pointer;
+}
+.overlay-content{text-align:center;animation:pulse 1.8s infinite}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.06);opacity:1}
+  100%{transform:scale(1);opacity:.8}
+}
+
+/* 🤍 CARD OVERLAY */
+#cardOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#ff7a8a,#3a0b14);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2500;
+}
+
+/* CARD */
+.card{
+  max-width:560px;
+  padding:2.6rem;
+  border-radius:32px;
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(16px);
+  text-align:center;
+  animation:cardIn .6s ease forwards;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:scale(.7)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* 🤗 BIG HUG */
+.big-hug{
+  font-size:94px;
+  margin-bottom:1rem;
+  animation:pop 1.4s ease-out forwards, hugFloat 3s infinite;
+}
+@keyframes pop{
+  from{transform:scale(0) rotate(-180deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+@keyframes hugFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.back-btn{
+  margin-top:1.8rem;
+  cursor:pointer;
+  opacity:.85;
+}
+
+/* 🤍 HUG BURST */
+.hug-burst{
+  position:fixed;
+  left:50%;
+  top:50%;
+  font-size:22px;
+  animation:burst 1.2s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes burst{
+  from{transform:scale(0);opacity:1}
+  to{
+    transform:scale(1.5) translate(var(--x),var(--y));
+    opacity:0
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="Dhaga Dhaga Song Video - Daagdi Chaawl  Marathi Song  Ankush Chaudhari, Pooja Sawant  Amitraj.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START -->
+<div id="startOverlay">
+  <div class="overlay-content">
+    <h2>🤗 Happy Hug Day 🤗</h2>
+    <p>Tap to feel my hug 🤍</p>
+  </div>
+</div>
+
+<!-- CARD -->
+<div id="cardOverlay">
+  <div class="card">
+    <div class="big-hug">🤗</div>
+    <h2>This Hug Is For You 🤍</h2>
+    <p id="cardQuote"></p>
+    <div class="back-btn" onclick="closeCard()">⬅ Back</div>
+  </div>
+</div>
+
+<div class="main">
+  <h2>* Hug Day Special *</h2>
+
+  <div class="hero">
+    <div class="left">
+      <div style="font-size:80px;animation:hugFloat 3s infinite;">🤗</div>
+
+      <p>Kunal</p>
+      <h3>🤍</h3>
+      <p>Shweta</p>
+
+      <div style="font-size:80px;animation:hugFloat 3s infinite;">🤗</div>
+    </div>
+
+    <div class="right">
+      <h3>A hug can say what words can’t 🤍</h3>
+      <div class="quotes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 🤗 HUG MESSAGE */
+const quotes=[`
+Dear Shweta,
+
+This hug is for the days
+when words fall short 🤍
+
+For the moments you need comfort,
+and the times you need strength.
+
+In my arms,
+you are safe,
+you are loved,
+you are home 🤗
+
+On this Hug Day,
+feel my warmth around you,
+even from miles away.
+
+Always yours,
+Kunal 💞
+`];
+
+const quotesDiv=document.querySelector(".quotes");
+const cardOverlay=document.getElementById("cardOverlay");
+const cardQuote=document.getElementById("cardQuote");
+
+quotes.forEach(text=>{
+  const p=document.createElement("p");
+  p.className="quote";
+  p.innerText=text;
+  p.onclick=()=>{
+    cardQuote.innerText=text;
+    cardOverlay.style.display="flex";
+    hugBurst();
+  };
+  quotesDiv.appendChild(p);
+});
+
+function closeCard(){
+  cardOverlay.style.display="none";
+}
+
+/* 🤗 FLOATING HUGS */
+function createHug(){
+  const h=document.createElement("div");
+  h.className="hug";
+  h.textContent=Math.random()>.5?"🤗":"🤍";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=16+Math.random()*18+"px";
+  h.style.animationDuration=6+Math.random()*4+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+}
+setInterval(createHug,700);
+
+/* 🤍 HUG BURST */
+function hugBurst(){
+  for(let i=0;i<18;i++){
+    const b=document.createElement("div");
+    b.className="hug-burst";
+    b.textContent="🤍";
+    b.style.setProperty("--x",(Math.random()*260-130)+"px");
+    b.style.setProperty("--y",(Math.random()*260-130)+"px");
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1200);
+  }
+}
+
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
+document.getElementById("startOverlay").onclick=()=>{
+  music.volume=.25;
+  music.play();
+  startOverlay.style.display="none";
+};
+</script>
+
+</body>
+</html>
