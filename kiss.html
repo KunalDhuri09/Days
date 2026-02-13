@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Kiss Day 😘</title>
+
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+<style>
+/* 😘 KISS DAY THEME */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #ff4d6d, #2b0612);
+  color: #fff;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* MAIN */
+.main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align:center;
+}
+
+.hero{
+  flex:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  justify-content:center;
+  align-items:center;
+}
+
+.left,.right{flex:1;min-width:280px}
+
+/* 💋 QUOTES */
+.quote{
+  margin:1.2rem auto;
+  padding:1.6rem 2rem;
+  max-width:500px;
+  border-radius:30px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(14px);
+  transition:.35s;
+}
+.quote:hover{
+  transform:scale(1.05);
+  background:rgba(255,120,150,.35);
+  box-shadow:0 0 40px rgba(255,70,110,.9);
+}
+.quote::after{
+  content:"💋 Tap for a kiss";
+  display:block;
+  margin-top:.6rem;
+  font-size:.75rem;
+  opacity:.7;
+}
+
+/* 💋 FLOATING KISSES */
+.kiss{
+  position:fixed;
+  bottom:-40px;
+  pointer-events:none;
+  z-index:999;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* 🎵 START OVERLAY */
+#startOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#ff4d6d,#2b0612);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  cursor:pointer;
+}
+.overlay-content{text-align:center;animation:pulse 1.8s infinite}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.06);opacity:1}
+  100%{transform:scale(1);opacity:.8}
+}
+
+/* 💖 CARD OVERLAY */
+#cardOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#ff2f5e,#2b0612);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2500;
+}
+
+/* CARD */
+.card{
+  max-width:580px;
+  padding:2.8rem;
+  border-radius:34px;
+  background:rgba(255,255,255,0.22);
+  backdrop-filter:blur(18px);
+  text-align:center;
+  animation:cardIn .6s ease forwards;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:scale(.7)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* 💋 BIG KISS */
+.big-kiss{
+  font-size:96px;
+  margin-bottom:1rem;
+  animation:pop 1.4s ease-out forwards, kissFloat 3s infinite;
+}
+@keyframes pop{
+  from{transform:scale(0) rotate(-180deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+@keyframes kissFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.back-btn{
+  margin-top:1.8rem;
+  cursor:pointer;
+  opacity:.85;
+}
+
+/* 💖 KISS BURST */
+.kiss-burst{
+  position:fixed;
+  left:50%;
+  top:50%;
+  font-size:22px;
+  animation:burst 1.2s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes burst{
+  from{transform:scale(0);opacity:1}
+  to{
+    transform:scale(1.5) translate(var(--x),var(--y));
+    opacity:0
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="Hrudayat Vaje Something  Ti Saddhya Kay Karte  Ankush Chaudhari & Tejashree Pradhan.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START -->
+<div id="startOverlay">
+  <div class="overlay-content">
+    <h2>😘 Happy Kiss Day 😘</h2>
+    <p>Tap to feel it 💖</p>
+  </div>
+</div>
+
+<!-- CARD -->
+<div id="cardOverlay">
+  <div class="card">
+    <div class="big-kiss">💋</div>
+    <h2>Just One Kiss 💖</h2>
+    <p id="cardQuote"></p>
+    <div class="back-btn" onclick="closeCard()">⬅ Back</div>
+  </div>
+</div>
+
+<div class="main">
+  <h2>* Kiss Day Special *</h2>
+
+  <div class="hero">
+    <div class="left">
+      <div style="font-size:80px;animation:kissFloat 3s infinite;">💋</div>
+
+      <p>Kunal</p>
+      <h3>❤️</h3>
+      <p>Shweta</p>
+
+      <div style="font-size:80px;animation:kissFloat 3s infinite;">💋</div>
+    </div>
+
+    <div class="right">
+      <h3>Some kisses say more than words 💖</h3>
+      <div class="quotes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 💋 KISS MESSAGE */
+const quotes=[`
+Dear Shweta,
+
+This kiss isn’t just on your lips,
+it’s on your heart 💖
+
+A kiss to say I miss you,
+a kiss to say I care,
+a kiss to remind you —
+you’re always mine 😘
+
+On this Kiss Day,
+close your eyes for a moment…
+and feel it 💋
+
+Always yours,
+Kunal ❤️
+`];
+
+const quotesDiv=document.querySelector(".quotes");
+const cardOverlay=document.getElementById("cardOverlay");
+const cardQuote=document.getElementById("cardQuote");
+
+quotes.forEach(text=>{
+  const p=document.createElement("p");
+  p.className="quote";
+  p.innerText=text;
+  p.onclick=()=>{
+    cardQuote.innerText=text;
+    cardOverlay.style.display="flex";
+    kissBurst();
+  };
+  quotesDiv.appendChild(p);
+});
+
+function closeCard(){
+  cardOverlay.style.display="none";
+}
+
+/* 💋 FLOATING KISSES */
+function createKiss(){
+  const k=document.createElement("div");
+  k.className="kiss";
+  k.textContent=Math.random()>.5?"💋":"❤️";
+  k.style.left=Math.random()*100+"vw";
+  k.style.fontSize=16+Math.random()*18+"px";
+  k.style.animationDuration=6+Math.random()*4+"s";
+  document.body.appendChild(k);
+  setTimeout(()=>k.remove(),10000);
+}
+setInterval(createKiss,700);
+
+/* 💖 KISS BURST */
+function kissBurst(){
+  for(let i=0;i<18;i++){
+    const b=document.createElement("div");
+    b.className="kiss-burst";
+    b.textContent="💖";
+    b.style.setProperty("--x",(Math.random()*260-130)+"px");
+    b.style.setProperty("--y",(Math.random()*260-130)+"px");
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1200);
+  }
+}
+
+/* 🎵 MUSIC */
+const music=document.getElementById("bgMusic");
+document.getElementById("startOverlay").onclick=()=>{
+  music.volume=.25;
+  music.play();
+  startOverlay.style.display="none";
+};
+</script>
+
+</body>
+</html>
